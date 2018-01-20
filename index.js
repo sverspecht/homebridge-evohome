@@ -79,7 +79,6 @@ EvohomePlatform.prototype = {
 
     accessories: function(callback) {
         this.log("Logging into Evohome...");
-        this.log("You have set 'locationIndex' to ", this.locationIndex);
 
         var that = this;
         // create the myAccessories array
@@ -87,11 +86,9 @@ EvohomePlatform.prototype = {
 
         evohome.login(that.username, that.password).then(function(session) {
             this.log("Logged into Evohome!");
-            this.log("You have set 'locationIndex' to ", that.locationIndex);
 
             session.getLocations().then(function(locations){
-                this.log("You have set 'locationIndex' to ", that.locationIndex);
-                this.log('You have', locations.length, 'location(s). Only the first one will be used!');
+                this.log('You have', locations.length, 'location(s). Index ', that.locationIndex, ' will be used!');
                 this.log('You have', locations[0].devices.length, 'device(s).')
                 
                 session.getThermostats(locations[0].locationID).then(function(thermostats){
