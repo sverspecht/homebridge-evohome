@@ -88,8 +88,9 @@ EvohomePlatform.prototype = {
             this.log("Logged into Evohome!");
 
             session.getLocations().then(function(locations){
-                this.log('You have', locations.length, 'location(s). Index ', that.locationIndex, ' will be used!');
-                this.log('You have', locations[0].devices.length, 'device(s).')
+                this.log('You have', locations.length, 'location(s).');
+                this.log('You have chosen locationIndex ', that.locationIndex, ' for this instance.');
+                this.log('You have', locations[that.locationIndex].devices.length, 'device(s).')
                 
                 session.getThermostats(locations[0].locationID).then(function(thermostats){
 
