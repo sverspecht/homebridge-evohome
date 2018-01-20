@@ -95,13 +95,13 @@ EvohomePlatform.prototype = {
                 session.getThermostats(locations[0].locationID).then(function(thermostats){
 
                 // iterate through the devices
-                for (var deviceId in locations[0].devices) {
+                for (var deviceId in locations[that.locationIndex].devices) {
                     for(var thermoId in thermostats) {
-                        if(locations[0].devices[deviceId].zoneID == thermostats[thermoId].zoneId) {
+                        if(locations[that.locationIndex].devices[deviceId].zoneID == thermostats[thermoId].zoneId) {
                             // print name of the device
-                            this.log(deviceId + ": " + locations[0].devices[deviceId].name + " (" + thermostats[thermoId].temperatureStatus.temperature + "°)");
+                            this.log(deviceId + ": " + locations[that.locationIndex].devices[deviceId].name + " (" + thermostats[thermoId].temperatureStatus.temperature + "°)");
 
-                            if(locations[0].devices[deviceId].name  == "") {
+                            if(locations[that.locationIndex].devices[deviceId].name  == "") {
                                 // Device name is empty
                                 // Probably Hot Water
                                 // Do not store
@@ -109,11 +109,11 @@ EvohomePlatform.prototype = {
                             }
                             else {
                                 // store device in var
-                                var device = locations[0].devices[deviceId];
+                                var device = locations[that.locationIndex].devices[deviceId];
                                 // store thermostat in var
                                 var thermostat = thermostats[thermoId];
                                 // store name of device
-                                var name = locations[0].devices[deviceId].name + " Thermostat";
+                                var name = locations[that.locationIndex].devices[deviceId].name + " Thermostat";
                                 // create accessory (only if it is "HeatingZone")
                                 if (device.modelType = "HeatingZone") {
                                     var accessory = new EvohomeThermostatAccessory(that.log, name, device, deviceId, thermostat, this.temperatureUnit, this.username, this.password, this.interval_setTemperature);
