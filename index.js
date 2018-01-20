@@ -65,6 +65,7 @@ function EvohomePlatform(log, config){
     this.username = config['username'];
     this.password = config['password'];
     this.temperatureUnit = config['temperatureUnit'];
+    this.locationIndex = config['locationIndex'];
     
     this.cache_timeout = 300; // seconds
     this.interval_setTemperature = 5; // seconds
@@ -78,6 +79,7 @@ EvohomePlatform.prototype = {
 
     accessories: function(callback) {
         this.log("Logging into Evohome...");
+        this.log("You have set 'locationIndex' to ", this.locationIndex);
 
         var that = this;
         // create the myAccessories array
@@ -85,8 +87,10 @@ EvohomePlatform.prototype = {
 
         evohome.login(that.username, that.password).then(function(session) {
             this.log("Logged into Evohome!");
+            this.log("You have set 'locationIndex' to ", that.locationIndex);
 
             session.getLocations().then(function(locations){
+                this.log("You have set 'locationIndex' to ", that.locationIndex);
                 this.log('You have', locations.length, 'location(s). Only the first one will be used!');
                 this.log('You have', locations[0].devices.length, 'device(s).')
                 
