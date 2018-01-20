@@ -92,7 +92,7 @@ EvohomePlatform.prototype = {
                 this.log('You have chosen locationIndex ', that.locationIndex, ' for this instance.');
                 this.log('You have', locations[that.locationIndex].devices.length, 'device(s).')
                 
-                session.getThermostats(locations[0].locationID).then(function(thermostats){
+                session.getThermostats(locations[that.locationIndex].locationID).then(function(thermostats){
 
                 // iterate through the devices
                 for (var deviceId in locations[that.locationIndex].devices) {
@@ -153,15 +153,15 @@ EvohomePlatform.prototype.periodicUpdate = function(session,myAccessories) {
                                                          
             session.getLocations().then(function(locations){
                                                                                      
-                session.getThermostats(locations[0].locationID).then(function(thermostats){
+                session.getThermostats(locations[this.locationIndex].locationID).then(function(thermostats){
                                 
-                    for (var deviceId in locations[0].devices) {
+                    for (var deviceId in locations[this.locationIndex].devices) {
                         for(var thermoId in thermostats) {
-                            if(locations[0].devices[deviceId].zoneID == thermostats[thermoId].zoneId) {
+                            if(locations[this.locationIndex].devices[deviceId].zoneID == thermostats[thermoId].zoneId) {
                                 for(var i=0; i<this.myAccessories.length; ++i) {
-                                    if(this.myAccessories[i].device.zoneID == locations[0].devices[deviceId].zoneID) {
+                                    if(this.myAccessories[i].device.zoneID == locations[this.locationIndex].devices[deviceId].zoneID) {
 
-                                        var device = locations[0].devices[deviceId];
+                                        var device = locations[this.locationIndex].devices[deviceId];
                                         var thermostat = thermostats[thermoId];
 
                                         if(device) {
