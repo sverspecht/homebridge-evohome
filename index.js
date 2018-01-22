@@ -65,7 +65,7 @@ function EvohomePlatform(log, config){
     this.username = config['username'];
     this.password = config['password'];
     this.temperatureUnit = config['temperatureUnit'];
-    this.locationIndex = config['locationIndex'];
+    this.locationIndex = config['locationIndex'] || 0; // optional location index for multiple locations (i.e. 0, 1, etc...)
     
     this.cache_timeout = 300; // seconds
     this.interval_setTemperature = 5; // seconds
